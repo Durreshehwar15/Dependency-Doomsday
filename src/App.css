@@ -1020,7 +1020,302 @@ footer {
     transition: none !important;
   }
 }
-footer strong {
-  color: var(--text);
-  font-weight: 600;
+
+
+/* =========================================================
+   MOTION LAYER — animations, transitions and hover effects
+   (CSS only: no markup or logic changes)
+   ========================================================= */
+
+html { scroll-behavior: smooth; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes slide-in-row {
+  from { opacity: 0; transform: translateX(-16px); background: #fff7ed; }
+  to   { opacity: 1; transform: none; }
+}
+
+/* uses the separate "translate" property so hover transforms still work */
+@keyframes float-y {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -3px; }
+}
+
+@keyframes sheen {
+  0%   { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(260%) skewX(-20deg); }
+}
+
+@keyframes stripe-move {
+  to { background-position: 28px 0; }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shake {
+  0%, 100% { translate: 0 0; }
+  20% { translate: -6px 0; }
+  40% { translate: 5px 0; }
+  60% { translate: -3px 0; }
+  80% { translate: 2px 0; }
+}
+
+@keyframes glow-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  50%      { box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.12); }
+}
+
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-18px, 14px) scale(1.12); }
+}
+
+@keyframes edge-flow { to { stroke-dashoffset: -12; } }
+
+/* ---------- page entrance (staggered) ---------- */
+
+.topbar           { animation: fade-up 0.5s var(--ease) backwards; }
+.intro            { animation: fade-up 0.6s var(--ease) 0.08s backwards; }
+.score-grid       { animation: fade-up 0.6s var(--ease) 0.16s backwards; }
+.incident-report  { animation: fade-up 0.6s var(--ease) 0.24s backwards; }
+.workspace        { animation: fade-up 0.6s var(--ease) 0.32s backwards; }
+.external-monitor { animation: fade-up 0.6s var(--ease) 0.4s backwards; }
+.incident-history { animation: fade-up 0.6s var(--ease) 0.48s backwards; }
+footer            { animation: fade-up 0.6s var(--ease) 0.56s backwards; }
+
+/* score cards pop in one after another */
+.score-card { animation: fade-up 0.5s var(--ease) backwards; }
+.score-grid > .score-card:nth-of-type(1) { animation-delay: 0.20s; }
+.score-grid > .score-card:nth-of-type(2) { animation-delay: 0.26s; }
+.score-grid > .score-card:nth-of-type(3) { animation-delay: 0.32s; }
+.score-grid > .score-card:nth-of-type(4) { animation-delay: 0.38s; }
+.score-grid > .score-card:nth-of-type(5) { animation-delay: 0.44s; }
+.score-grid > .score-card:nth-of-type(6) { animation-delay: 0.50s; }
+
+/* ---------- header ---------- */
+
+.brand-icon {
+  animation: float-y 3.4s ease-in-out infinite;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.brand:hover .brand-icon {
+  transform: rotate(-8deg) scale(1.08);
+  box-shadow: 0 10px 22px -4px rgba(232, 70, 31, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.live-badge span { animation: blink-dot 1.8s ease-in-out infinite; }
+
+/* ---------- intro ---------- */
+
+.intro h2 span {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+.metric { transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.metric:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.45);
+}
+
+.metric::after { animation: drift 7s ease-in-out infinite; }
+
+.metric::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  animation: sheen 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.meter i {
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.28) 0 7px,
+    transparent 7px 14px
+  );
+  background-color: var(--red);
+  background-size: 28px 100%;
+  animation: stripe-move 0.9s linear infinite;
+  transition: width 0.7s var(--ease);
+}
+
+/* ---------- score cards ---------- */
+
+.score-card strong { transition: color 0.3s, transform 0.3s var(--ease); }
+.score-card:hover strong { transform: scale(1.06); transform-origin: left center; }
+
+.score-card::before { transition: height 0.25s var(--ease); }
+.score-card:hover::before { height: 5px; }
+
+.score-card.tone-failed strong { animation: blink-dot 1.6s ease-in-out infinite; }
+
+/* ---------- incident banner ---------- */
+
+.incident-report { transition: background 0.4s, border-color 0.4s, transform 0.3s var(--ease); }
+.incident-report:hover { transform: translateX(4px); }
+
+.incident-report.is-alert {
+  animation: shake 0.5s ease-in-out, glow-red 2.2s ease-in-out 0.5s infinite;
+}
+
+.report-icon { transition: transform 0.3s var(--ease), background 0.3s; }
+.incident-report:hover .report-icon { transform: scale(1.12) rotate(8deg); }
+.is-alert .report-icon { animation: float-y 1.4s ease-in-out infinite; }
+
+/* ---------- topology ---------- */
+
+.map-card { transition: box-shadow 0.3s var(--ease); }
+.map-card:hover {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 20px 40px -16px rgba(15, 23, 42, 0.18);
+}
+
+.react-flow__node {
+  transition: box-shadow 0.25s var(--ease), border-color 0.25s var(--ease),
+              background 0.35s var(--ease), color 0.35s;
+}
+.react-flow__node:hover {
+  filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.16));
+}
+
+.react-flow__edge-path { transition: stroke 0.4s var(--ease); }
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 6 6;
+  animation: edge-flow 0.8s linear infinite;
+}
+
+.react-flow__controls button { transition: background 0.15s, transform 0.1s; }
+.react-flow__controls button:active { transform: scale(0.9); }
+
+/* ---------- control panel ---------- */
+
+.selected-service strong { animation: fade-up 0.35s var(--ease) backwards; }
+
+.actions button {
+  position: relative;
+  overflow: hidden;
+}
+
+/* light sweep across buttons on hover */
+.actions button::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translateX(-130%) skewX(-20deg);
+  pointer-events: none;
+}
+.actions button:hover:not(:disabled)::after {
+  animation: sheen 0.8s var(--ease) 1;
+}
+
+.danger-button:hover:not(:disabled) {
+  box-shadow: 0 8px 18px -8px rgba(220, 38, 38, 0.5);
+}
+
+/* ---------- history rows ---------- */
+
+.history-item { animation: slide-in-row 0.45s var(--ease) backwards; }
+.history-failed,
+.history-recovered { transition: transform 0.2s var(--ease); }
+.history-item:hover .history-failed,
+.history-item:hover .history-recovered { transform: scale(1.06); }
+
+.history-empty { animation: fade-in 0.6s ease backwards; }
+
+/* ---------- HTTP monitor ---------- */
+
+.monitor-result { animation: fade-up 0.4s var(--ease) backwards; }
+
+.monitor-status { transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.monitor-ok i { animation: blink-dot 1.8s ease-in-out infinite; }
+.monitor-failed i { animation: pulse 1.2s ease-in-out infinite; }
+
+.monitor-input-row button { transition: background 0.15s, transform 0.1s, box-shadow 0.2s; }
+.monitor-input-row button:hover:not(:disabled) {
+  background: #1e293b;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px -8px rgba(15, 23, 42, 0.5);
+}
+.monitor-input-row button:active:not(:disabled) { transform: scale(0.97); }
+
+/* moving stripes while a check is running */
+.monitor-input-row button:disabled {
+  background-image: repeating-linear-gradient(
+    115deg, rgba(255, 255, 255, 0.14) 0 8px, transparent 8px 16px
+  );
+  background-size: 32px 100%;
+  animation: stripe-move 0.8s linear infinite;
+}
+
+/* ---------- help ---------- */
+
+.help-button {
+  transition: background 0.15s, border-color 0.15s, color 0.15s,
+              transform 0.2s var(--ease), box-shadow 0.2s;
+}
+.help-button:hover { transform: translateY(-1px); box-shadow: 0 6px 12px -6px rgba(232, 70, 31, 0.5); }
+.help-button:active { transform: scale(0.96); }
+
+.help-close { transition: background 0.15s, transform 0.25s var(--ease); }
+.help-close:hover { transform: rotate(90deg); }
+
+/* tips slide in one by one */
+.help-modal li {
+  animation: fade-up 0.4s var(--ease) backwards;
+  transition: transform 0.2s var(--ease), border-color 0.2s;
+}
+.help-modal li:hover { transform: translateX(4px); border-color: #f8b9a5; }
+.help-modal li:nth-child(1) { animation-delay: 0.08s; }
+.help-modal li:nth-child(2) { animation-delay: 0.14s; }
+.help-modal li:nth-child(3) { animation-delay: 0.20s; }
+.help-modal li:nth-child(4) { animation-delay: 0.26s; }
+.help-modal li:nth-child(5) { animation-delay: 0.32s; }
+.help-modal li:nth-child(6) { animation-delay: 0.38s; }
+
+/* ---------- footer ---------- */
+
+.footer-dot { display: inline-block; animation: blink-dot 1.6s ease-in-out infinite; }
+footer span { transition: color 0.2s; }
+footer span:hover { color: var(--text); }
+
+/* keep the reduced-motion safety net winning over everything above */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.brand-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }

@@ -466,7 +466,9 @@ useEffect(() => {
     <main className="app">
       <header className="topbar">
         <div className="brand">
-          <div className="brand-icon">D</div>
+          <div className="brand-icon">
+  <img src="icon-512.png" />
+</div>
           <div className="brand-text">
             <h1>Dependency Doomsday</h1>
             <p>BREAK IT BEFORE IT BREAKS YOU</p>
