@@ -1,75 +1,51 @@
-# React + TypeScript + Vite
+# Dependency Doomsday
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Visualize Dependencies. Simulate Failures. Understand System Health.
 
-Currently, two official plugins are available:
+Dependency Doomsday is a web application that helps developers understand service dependencies, simulate service failures, restore services, and monitor external HTTP endpoints. It provides a visual way to explore how failures can affect connected components in a system.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📸 Project Preview
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **Service Dependency Visualization:** Explore connected services through an interactive graph.
+- **Failure Simulation:** Simulate failures in individual services and observe their health status.
+- **Service Restoration:** Restore simulated failures and check the updated status.
+- **Live HTTP Monitoring:** Send an HTTPS request to an external endpoint and view its HTTP status and response time.
+- **Interactive Dashboard:** View service information and interact with monitoring controls.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Technologies Used
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Frontend**
+- React
+- TypeScript
+- Vite
+- React Flow (`@xyflow/react`)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Backend**
+- Node.js
+- Express.js
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
 
-```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 How to Use
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Open the dashboard and explore the service dependency graph.
+2. Review the health status of the available services.
+3. Select a service and use the failure simulation control.
+4. Observe the resulting status, then restore the service.
+5. Open Live HTTP Check, enter an HTTPS endpoint, and select **Check now**.
+6. Review the HTTP status and response time returned by the check.
 
-```
+
+
+## 🎯 Purpose
+
+The project demonstrates how service dependency visualization, failure simulation, service restoration, and HTTP endpoint monitoring can help developers explore system behavior and understand reliability concepts.
+
+
+
+*Built as a project exploring service dependencies, failure scenarios, and monitoring.*
